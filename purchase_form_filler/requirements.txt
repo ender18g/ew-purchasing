@@ -1,0 +1,10 @@
+certifi==2021.5.30
+chardet==4.0.0
+fillpdf==0.1.0
+idna==2.10
+pdf2image==1.16.0
+pdfrw==0.4
+Pillow==8.3.0
+PyPDF2==1.26.0
+requests==2.25.1
+urllib3==1.26.6

@@ -1,0 +1,15 @@
+.nav-logo {
+	-webkit-filter: drop-shadow(0px 0px 3px rgba(255, 255, 255, .3));
+	filter: drop-shadow(0px 0px 3px rgba(254, 254, 254, .3));
+	transition: all 1.5s ease;
+}
+.header-link {
+	color: white;
+	text-decoration: none !important;
+	letter-spacing: .05em;
+}
+
+.header-link:hover {
+	color: #4fd1c5;
+	font-weight: 400;
+}

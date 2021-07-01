@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import { FirebaseAppProvider } from 'reactfire';
+import { BrowserRouter } from 'react-router-dom';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyC-IH4GiQKEh5qtZZV72VzZHHbZKPI6sFw',
@@ -19,7 +20,9 @@ const firebaseConfig = {
 ReactDOM.render(
 	<FirebaseAppProvider firebaseConfig={firebaseConfig}>
 		<ColorModeScript />
-		<App />
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
 	</FirebaseAppProvider>,
 	document.getElementById('root')
 );
