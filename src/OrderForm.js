@@ -44,17 +44,17 @@ export default function OrderForm() {
 			<Flex m="3" justifyContent="center">
 				<Input
 					onChange={handleChange}
-					name="orderRequestor"
+					name="requestor"
 					width="800px"
-					value={data.orderRequestor}
-					placeholder="Your Name"
+					value={data.requestor}
+					placeholder="Requestor"
 				/>
 				<Input
 					onChange={handleChange}
-					name="orderVendor"
+					name="merchant"
 					width="800px"
-					value={data.orderVendor}
-					placeholder="Vendor"
+					value={data.merchant}
+					placeholder="Merchant"
 				/>
 			</Flex>
 			{Array.from(Array(numItems), (e, i) => (
