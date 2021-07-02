@@ -17,7 +17,7 @@ import { useState, useEffect } from 'react';
 import { useDatabase, useDatabaseListData, useDatabaseObjectData, useUser } from 'reactfire';
 import { CheckIcon } from '@chakra-ui/icons';
 
-export default function OrderForm() {
+export default function OrderForm(props) {
 	const [ status, setStatus ] = useState(false);
 	const [ numItems, setNumItems ] = useState(4);
 	const [ orderTotal, setOrderTotal ] = useState(0);
@@ -52,12 +52,20 @@ export default function OrderForm() {
 		[ data ]
 	);
 
+	useEffect(() => {
+		if (props.data) {
+			setData(props.data);
+			setNumItems(props.data.numItems);
+		}
+	}, []);
+
 	const database = useDatabase();
 	const ref = database.ref('orders');
 
 	const addOrder = () => {
-		const newRef = ref.push();
-		newRef.set(data);
+		let newRef;
+		props.fireKey ? (newRef = ref.child(props.fireKey)) : (newRef = ref.push());
+		newRef.set({ ...data, orderTotal: orderTotal, numItems: numItems });
 		setStatus(true);
 		console.log(newRef);
 	};
@@ -68,7 +76,9 @@ export default function OrderForm() {
 
 	return (
 		<Box m="8">
-			<Heading align="center">Order Form</Heading>
+			<Heading fontWeight="200" letterSpacing=".1em" size="lg" align="center">
+				Order Form
+			</Heading>
 
 			{/* TITLE AND BUDGET CODE */}
 			<Flex m="3" justifyContent="center">
@@ -90,7 +100,7 @@ export default function OrderForm() {
 			</Flex>
 
 			{/* REQUESTOR DATA */}
-			<Flex m="3" justifyContent="center">
+			<Flex m="3" justifyContent="center" flexWrap={{ base: 'wrap', md: 'nowrap' }}>
 				<Input
 					onChange={handleChange}
 					name="requestor"
@@ -116,7 +126,7 @@ export default function OrderForm() {
 			</Flex>
 
 			{/* MERCHANT DATA */}
-			<Flex m="3" justifyContent="center">
+			<Flex m="3" justifyContent="center" flexWrap={{ base: 'wrap', md: 'nowrap' }}>
 				<Input
 					onChange={handleChange}
 					name="merchant"
@@ -140,16 +150,15 @@ export default function OrderForm() {
 				/>
 			</Flex>
 
-			{/* ITEMS QUANTITY and PRICE */}
+			{/* ITEMS DESC QUANTITY and PRICE */}
 			<Divider my="5" />
 			{Array.from(Array(numItems), (e, i) => (
-				<Flex my="1" justifyContent="center">
-					<InputGroup w="800px">
+				<Flex my={{ base: '6', md: '1' }} justifyContent="center" flexWrap={{ base: 'wrap', md: 'nowrap' }}>
+					<InputGroup w="600px">
 						<InputLeftAddon children={i + 1} />
 						<Input
 							onChange={handleChange}
 							name={`desc${i + 1}`}
-							width="800px"
 							value={data[`desc${i + 1}`]}
 							placeholder={`Item ${i + 1} description`}
 						/>
@@ -166,7 +175,6 @@ export default function OrderForm() {
 						<Input
 							onChange={handleChange}
 							name={`unitPrice${i + 1}`}
-							width="200px"
 							value={data[`unitPrice${i + 1}`]}
 							placeholder={`Unit Price`}
 						/>
@@ -175,7 +183,6 @@ export default function OrderForm() {
 					<InputGroup width="200px">
 						<InputLeftAddon children="Total $" />
 						<Input
-							width="100px"
 							name={`unitPrice${i + 1}`}
 							value={
 								data[`unitPrice${i + 1}`] * data[`qty${i + 1}`] ? (
@@ -192,24 +199,23 @@ export default function OrderForm() {
 			))}
 
 			{/* ADD ANOTHER ITEM BUTTON AND TOTAL */}
-			<Flex my="5" justifyContent="space-around">
-				<Button colorScheme="gray" onClick={addItem}>
+			<Flex my="5" justifyContent="space-around" flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
+				<Button my="2" colorScheme="gray" onClick={addItem}>
 					+ Add Item
 				</Button>
-				<InputGroup width="300px">
+				<InputGroup my="2" width="300px">
 					<InputLeftAddon children="$" />
 					<Input
 						onChange={handleChange}
 						name="estShipping"
-						width="300px"
 						value={data.estShipping}
 						placeholder="Estimated Shipping"
 					/>
 				</InputGroup>
 
-				<InputGroup width="300px">
+				<InputGroup my="2" width="300px">
 					<InputLeftAddon children="Total Purchase $" />
-					<Input isReadOnly bg="gray.50" width="300px" value={orderTotal.toFixed(2)} />
+					<Input isReadOnly bg="gray.50" value={orderTotal.toFixed(2)} />
 				</InputGroup>
 			</Flex>
 
@@ -233,7 +239,7 @@ export default function OrderForm() {
 
 			{/* THESE ARE FOR CHECKBOXES */}
 
-			<Flex m="3" justifyContent="center">
+			<Flex m="3" justifyContent="center" flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
 				<Checkbox mx="4" colorScheme="red" name="itprYesNo" isChecked={data.itprYesNo} onChange={handleCheck}>
 					ITPR Required
 				</Checkbox>
@@ -255,7 +261,7 @@ export default function OrderForm() {
 				>
 					Hazmat
 				</Checkbox>
-				<Checkbox mx="4" colorScheme="green" name="giftYesNo" isChecked={data.giftYesNo} onChange={handleCheck}>
+				<Checkbox mx="3" colorScheme="green" name="giftYesNo" isChecked={data.giftYesNo} onChange={handleCheck}>
 					Gift Funds
 				</Checkbox>
 				<Input

@@ -7,31 +7,43 @@ import './Navbar.css';
 
 const Navbar = (props) => {
 	return (
-		<Flex boxShadow="md" justify="space-between" align="center" bg="blue.700" paddingX={4} paddingY={2}>
-			<Flex justify="left" align="center">
-				<Image className="nav-logo" height="50px" src={logo} />
-				<Heading mx="5" fontWeight="300" textAlign="right" letterSpacing=".2em" color="white" size="md">
+		<Flex boxShadow="lg" justify="space-between" align="center" bg="blue.700" paddingX={2} paddingY={2} w="100%">
+			<Flex justify="center" align="center">
+				<Flex>
+					<Image className="nav-logo" height="50px" src={logo} />
+				</Flex>
+				<Heading
+					mx="5"
+					fontWeight="300"
+					textAlign="right"
+					letterSpacing=".2em"
+					color="white"
+					size="md"
+					display={{ base: 'none', md: 'flex' }}
+				>
 					WRC Purchasing
 				</Heading>
 			</Flex>
-			<Flex justifyContent="space-between" align="center">
-				<NavLink className="header-link" to="/">
-					<Text mx="5" fontSize="lg">
+			<Flex justifyContent="space-between" alignItems="center">
+				<NavLink w="100px" className="header-link" to="/">
+					<Text mx="5" fontSize="md">
 						Home
 					</Text>
 				</NavLink>
-				<NavLink className="header-link" to="/form">
-					<Text mx="5" fontSize="lg">
-						Order Form
+				<NavLink w="100px" className="header-link" to="/form">
+					<Text mx="5" fontSize="md">
+						Order
 					</Text>
 				</NavLink>
 
-				<NavLink className="header-link" to="/review">
-					<Text mx="5" fontSize="lg">
-						Review Orders
+				<NavLink w="100px" className="header-link" to="/review">
+					<Text mx="5" fontSize="md">
+						Review
 					</Text>
 				</NavLink>
-				<ColorModeSwitcher />
+				<Box display={{ base: 'none', md: 'flex' }}>
+					<ColorModeSwitcher />
+				</Box>
 			</Flex>
 		</Flex>
 	);
