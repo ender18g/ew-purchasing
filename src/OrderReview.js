@@ -18,7 +18,7 @@ import {
 	Td,
 	Thead
 } from '@chakra-ui/react';
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { DeleteIcon, EditIcon, CopyIcon } from '@chakra-ui/icons';
 import 'firebase/database';
 import { useState } from 'react';
 import { useDatabase, useDatabaseList, useDatabaseListData, useDatabaseObjectData, useUser } from 'reactfire';
@@ -36,6 +36,7 @@ export default function OrderReview() {
 	const removeOrder = (k) => {
 		ref.child(k).remove();
 		console.log(`removed ${k}`);
+		setShowOrder({ show: false });
 	};
 
 	console.log(orderList);
@@ -45,15 +46,15 @@ export default function OrderReview() {
 			<Heading fontWeight="200" letterSpacing=".1em" size="lg" align="center">
 				Order Review
 			</Heading>
-			<Flex w="100%">
-				<Table my="6" size="sm" variant="striped" colorScheme="whiteAlpha">
-					<TableCaption>All Saved Orders</TableCaption>
+			<Flex my="5" w="100%">
+				<Table size="sm" colorScheme="facebook">
+					<TableCaption fontSize="md">Click on an order to review the form</TableCaption>
 					<Thead>
 						<Tr>
-							<Th display={{ base: 'none', md: 'block' }}>Title</Th>
+							<Th visibility={{ base: 'hidden', md: 'visible' }}>Title</Th>
 							<Th>Date</Th>
 							<Th>Requestor</Th>
-							<Th display={{ base: 'none', md: 'block' }}>Merchant</Th>
+							<Th visibility={{ base: 'hidden', md: 'visible' }}>Merchant</Th>
 							<Th>Total</Th>
 						</Tr>
 					</Thead>
@@ -64,31 +65,26 @@ export default function OrderReview() {
 							}
 
 							return (
-								<Tr key={k}>
-									<Td display={{ base: 'none', md: 'block' }}>{orderList[k]['orderTitle']}</Td>
+								<Tr
+									onClick={() => {
+										setShowOrder({ show: false });
+										setTimeout(() => {
+											setShowOrder({
+												show: true,
+												data: orderList[k],
+												key: k
+											});
+										}, 100);
+									}}
+									className="tableRow"
+									key={k}
+									bg={showOrder.key === k && 'blue.100'}
+								>
+									<Td visibility={{ base: 'hidden', md: 'visible' }}>{orderList[k]['orderTitle']}</Td>
 									<Td>{orderList[k]['date']}</Td>
 									<Td>{orderList[k]['requestor']}</Td>
-									<Td display={{ base: 'none', md: 'block' }}>{orderList[k]['merchant']}</Td>
-									<Td>
-										${orderList[k]['orderTotal'].toFixed(2)}
-										{!showOrder.show && (
-											<Flex>
-												<EditIcon
-													mx="2"
-													color="blue.600"
-													h={7}
-													onClick={() =>
-														setShowOrder({ show: true, data: orderList[k], key: k })}
-												/>
-												<DeleteIcon
-													mx="2"
-													color="red.600"
-													h={7}
-													onClick={() => removeOrder(k)}
-												/>
-											</Flex>
-										)}
-									</Td>
+									<Td visibility={{ base: 'hidden', md: 'visible' }}>{orderList[k]['merchant']}</Td>
+									<Td>${orderList[k]['orderTotal'].toFixed(2)}</Td>
 								</Tr>
 							);
 						})}
@@ -97,10 +93,39 @@ export default function OrderReview() {
 			</Flex>
 			{showOrder.show && (
 				<Flex justifyContent="center">
-					<Button onClick={() => setShowOrder({ ...showOrder, show: false })}>Hide Order Form</Button>
+					<Button colorScheme="teal" onClick={() => setShowOrder({ ...showOrder, show: false })}>
+						Hide Order Form
+					</Button>
 				</Flex>
 			)}
-			{showOrder.show && <OrderForm data={showOrder.data} fireKey={showOrder.key} />}
+			{showOrder.show && (
+				<Box my="6">
+					<OrderForm data={showOrder.data} fireKey={showOrder.key} />
+					<Flex alignItems="center" justifyContent="center">
+						<Button mx="2" colorScheme="red" onClick={() => removeOrder(showOrder.key)}>
+							<DeleteIcon className="icon" mx="2" />
+							Delete Order
+						</Button>
+						<Button
+							mx="2"
+							colorScheme="teal"
+							onClick={() => {
+								setShowOrder({ show: false });
+								setTimeout(() => {
+									setShowOrder({
+										show: true,
+										data: { ...orderList[showOrder.key], orderTitle: 'Duplicate Order' },
+										key: false
+									});
+								}, 100);
+							}}
+						>
+							<CopyIcon className="icon" mx="2" />
+							Copy Order
+						</Button>
+					</Flex>
+				</Box>
+			)}
 			<Flex justifyContent="center">
 				<Link color="blue" href="https://ew-purchasing-default-rtdb.firebaseio.com/orders.json">
 					Firebase JSON

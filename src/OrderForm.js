@@ -22,7 +22,13 @@ export default function OrderForm(props) {
 	const [ numItems, setNumItems ] = useState(4);
 	const [ orderTotal, setOrderTotal ] = useState(0);
 	const [ data, setData ] = useState({
-		orderTitle: ''
+		orderTitle: '',
+		budgetPSC: 'Volgeneau VE',
+		giftYesNo: 'Checked',
+		costCtrPOC: 'Michael Cornelius',
+		budgetPOC: 'Millie Pierce',
+		giftLtr: 'FK',
+		giftAct: '66040'
 	});
 	const handleChange = (event) => {
 		setData({ ...data, [event.target.name]: event.target.value });
@@ -89,6 +95,9 @@ export default function OrderForm(props) {
 					width="800px"
 					value={data.orderTitle}
 					placeholder="The title of your order"
+					errorBorderColor="crimson"
+					isInvalid={!data.orderTitle}
+					mx="1"
 				/>
 				<Input
 					onChange={handleChange}
@@ -96,6 +105,8 @@ export default function OrderForm(props) {
 					width="150px"
 					value={data.budgetPSC}
 					placeholder="PSC"
+					isInvalid={!data.budgetPSC}
+					mx="1"
 				/>
 			</Flex>
 
@@ -107,6 +118,8 @@ export default function OrderForm(props) {
 					width="800px"
 					value={data.requestor}
 					placeholder="Requestor"
+					isInvalid={!data.requestor}
+					mx="1"
 				/>
 				<Input
 					onChange={handleChange}
@@ -114,6 +127,8 @@ export default function OrderForm(props) {
 					width="800px"
 					value={data.requestorPhone}
 					placeholder="Requestor Phone"
+					isInvalid={!data.requestorPhone}
+					mx="1"
 				/>
 				<Input
 					type="date"
@@ -122,6 +137,8 @@ export default function OrderForm(props) {
 					width="800px"
 					value={data.date}
 					placeholder="Date"
+					isInvalid={!data.date}
+					mx="1"
 				/>
 			</Flex>
 
@@ -133,20 +150,24 @@ export default function OrderForm(props) {
 					width="800px"
 					value={data.merchant}
 					placeholder="Merchant"
+					isInvalid={!data.merchant}
+					mx="1"
 				/>
 				<Input
 					onChange={handleChange}
 					name="merchantPOC"
 					width="800px"
 					value={data.merchantPOC}
-					placeholder="Merchant POC"
+					placeholder="Merchant POC/Website"
+					isInvalid={!data.merchantPOC}
+					mx="1"
 				/>
 				<Input
 					onChange={handleChange}
 					name="merchantPhone"
 					width="800px"
 					value={data.merchantPhone}
-					placeholder="Merchant Phone"
+					placeholder="Merchant Phone (Optional)"
 				/>
 			</Flex>
 
@@ -227,6 +248,8 @@ export default function OrderForm(props) {
 					width="800px"
 					value={data.costCtrPOC}
 					placeholder="Cost Center Head Name"
+					isInvalid={!data.costCtrPOC}
+					mx="1"
 				/>
 				<Input
 					onChange={handleChange}
@@ -234,6 +257,8 @@ export default function OrderForm(props) {
 					width="800px"
 					value={data.budgetPOC}
 					placeholder="Authorizing Official Name"
+					isInvalid={!data.budgetPOC}
+					mx="1"
 				/>
 			</Flex>
 
@@ -270,6 +295,8 @@ export default function OrderForm(props) {
 					width="200px"
 					value={data.giftAct}
 					placeholder="Gift Account Code"
+					isInvalid={!data.giftAct}
+					mx="1"
 				/>
 				<Input
 					onChange={handleChange}
@@ -277,11 +304,13 @@ export default function OrderForm(props) {
 					width="200px"
 					value={data.giftLtr}
 					placeholder="Gift Letter Code"
+					isInvalid={!data.giftLtr}
+					mx="1"
 				/>
 			</Flex>
 
 			<Flex my="5" justifyContent="center">
-				<Button colorScheme={status ? 'teal' : 'red'} onClick={addOrder}>
+				<Button colorScheme={status ? 'teal' : 'blue'} onClick={addOrder}>
 					{status && <CheckIcon mx="2" />}
 					{status ? 'Order Saved' : 'Save Order'}
 				</Button>

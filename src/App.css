@@ -1,3 +1,15 @@
 .app-div {
 	text-align: center;
 }
+
+.icon {
+	cursor: pointer;
+}
+
+.tableRow:hover {
+	background-color: lightgray;
+}
+
+.tableRow {
+	transition: .5s ease;
+}
