@@ -51,10 +51,10 @@ export default function OrderReview() {
 					<TableCaption fontSize="md">Click on an order to review the form</TableCaption>
 					<Thead>
 						<Tr>
-							<Th visibility={{ base: 'hidden', md: 'visible' }}>Title</Th>
+							<Th display={{ base: 'none', md: 'revert' }}>Title</Th>
 							<Th>Date</Th>
 							<Th>Requestor</Th>
-							<Th visibility={{ base: 'hidden', md: 'visible' }}>Merchant</Th>
+							<Th display={{ base: 'none', md: 'revert' }}>Merchant</Th>
 							<Th>Total</Th>
 						</Tr>
 					</Thead>
@@ -80,10 +80,10 @@ export default function OrderReview() {
 									key={k}
 									bg={showOrder.key === k && 'blue.100'}
 								>
-									<Td visibility={{ base: 'hidden', md: 'visible' }}>{orderList[k]['orderTitle']}</Td>
+									<Td display={{ base: 'none', md: 'revert' }}>{orderList[k]['orderTitle']}</Td>
 									<Td>{orderList[k]['date']}</Td>
 									<Td>{orderList[k]['requestor']}</Td>
-									<Td visibility={{ base: 'hidden', md: 'visible' }}>{orderList[k]['merchant']}</Td>
+									<Td display={{ base: 'none', md: 'revert' }}>{orderList[k]['merchant']}</Td>
 									<Td>${orderList[k]['orderTotal'].toFixed(2)}</Td>
 								</Tr>
 							);
