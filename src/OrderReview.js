@@ -127,7 +127,7 @@ export default function OrderReview() {
 				</Box>
 			)}
 			<Flex justifyContent="center">
-				<Link color="blue" href="https://ew-purchasing-default-rtdb.firebaseio.com/orders.json">
+				<Link color="teal" href="https://ew-purchasing-default-rtdb.firebaseio.com/orders.json">
 					Firebase JSON
 				</Link>
 			</Flex>
