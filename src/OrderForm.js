@@ -23,7 +23,7 @@ export default function OrderForm(props) {
 	const [ orderTotal, setOrderTotal ] = useState(0);
 	const [ fireKey, setFireKey ] = useState(props.fireKey || false);
 	const [ data, setData ] = useState({
-		orderTitle: '',
+		orderTitle: 'Order Title',
 		budgetPSC: 'Volgeneau VE',
 		giftYesNo: 'Checked',
 		costCtrPOC: 'Michael Cornelius',
@@ -90,7 +90,7 @@ export default function OrderForm(props) {
 	return (
 		<Box m="8">
 			<Heading fontWeight="200" letterSpacing=".1em" size="lg" align="center">
-				Order Form
+				{data.orderTitle}
 			</Heading>
 
 			{/* TITLE AND BUDGET CODE */}

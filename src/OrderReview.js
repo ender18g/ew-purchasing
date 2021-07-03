@@ -48,7 +48,7 @@ export default function OrderReview() {
 			</Heading>
 			<Flex my="5" w="100%">
 				<Table size="sm" colorScheme="facebook">
-					<TableCaption fontSize="md">Click on an order to review the form</TableCaption>
+					<TableCaption fontSize="md">Click on a row to review order details </TableCaption>
 					<Thead>
 						<Tr>
 							<Th display={{ base: 'none', md: 'revert' }}>Title</Th>
