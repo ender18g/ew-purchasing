@@ -131,7 +131,8 @@ export default function OrderForm(props) {
 				<Input
 					onChange={handleChange}
 					name="requestorPhone"
-					width="800px"
+					type="tel "
+					width="300px"
 					value={data.requestorPhone}
 					placeholder="Requestor Phone"
 					isInvalid={!data.requestorPhone}
@@ -141,7 +142,7 @@ export default function OrderForm(props) {
 					type="date"
 					onChange={handleChange}
 					name="date"
-					width="800px"
+					width="300px"
 					value={data.date}
 					placeholder="Date"
 					isInvalid={!data.date}
@@ -154,7 +155,7 @@ export default function OrderForm(props) {
 				<Input
 					onChange={handleChange}
 					name="merchant"
-					width="800px"
+					width="600px"
 					value={data.merchant}
 					placeholder="Merchant"
 					isInvalid={!data.merchant}
@@ -172,7 +173,8 @@ export default function OrderForm(props) {
 				<Input
 					onChange={handleChange}
 					name="merchantPhone"
-					width="800px"
+					type="tel"
+					width="300px"
 					value={data.merchantPhone}
 					placeholder="Merchant Phone (Optional)"
 				/>
@@ -202,6 +204,10 @@ export default function OrderForm(props) {
 						width="150px"
 						value={data[`qty${i + 1}`]}
 						placeholder={`Quantity`}
+						type="number"
+						min="0"
+						max="10000"
+						step="1"
 					/>
 					<InputGroup width="200px">
 						<InputLeftAddon children="$" />
@@ -210,6 +216,9 @@ export default function OrderForm(props) {
 							name={`unitPrice${i + 1}`}
 							value={data[`unitPrice${i + 1}`]}
 							placeholder={`Unit Price`}
+							min="0"
+							max="10000"
+							step=".01"
 						/>
 					</InputGroup>
 
