@@ -88,13 +88,22 @@ export default function OrderForm(props) {
 	};
 
 	return (
-		<Box m="8">
+		<Box
+			my="6"
+			mx={{ base: '3', xl: '20' }}
+			bg="gray.50"
+			borderRadius="md"
+			py="10"
+			px={{ base: '1', xl: '20' }}
+			border="2px"
+			borderColor="gray.100"
+		>
 			<Heading fontWeight="200" letterSpacing=".1em" size="lg" align="center">
 				{data.orderTitle}
 			</Heading>
 
 			{/* TITLE AND BUDGET CODE */}
-			<Flex m="3" justifyContent="center">
+			<Flex m="2" justifyContent="center">
 				<Input
 					isRequired
 					onChange={handleChange}
