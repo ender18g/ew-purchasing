@@ -97,6 +97,7 @@ export default function OrderForm(props) {
 			px={{ base: '1', xl: '20' }}
 			border="2px"
 			borderColor="gray.100"
+			shadow="md"
 		>
 			<Heading fontWeight="200" letterSpacing=".1em" size="lg" align="center">
 				{data.orderTitle}

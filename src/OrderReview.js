@@ -42,7 +42,7 @@ export default function OrderReview() {
 	console.log(orderList);
 
 	return (
-		<Box my="5">
+		<Box m="5">
 			<Heading fontWeight="200" letterSpacing=".1em" size="lg" align="center">
 				Order Review
 			</Heading>
