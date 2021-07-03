@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	Box,
 	Text,
-	Spinner,
+	Link,
 	Input,
 	Flex,
 	Button,
@@ -15,12 +15,13 @@ import {
 import 'firebase/database';
 import { useState, useEffect } from 'react';
 import { useDatabase, useDatabaseListData, useDatabaseObjectData, useUser } from 'reactfire';
-import { CheckIcon } from '@chakra-ui/icons';
+import { CheckIcon, SpinnerIcon } from '@chakra-ui/icons';
 
 export default function OrderForm(props) {
 	const [ status, setStatus ] = useState(false);
 	const [ numItems, setNumItems ] = useState(4);
 	const [ orderTotal, setOrderTotal ] = useState(0);
+	const [ fireKey, setFireKey ] = useState(props.fireKey || false);
 	const [ data, setData ] = useState({
 		orderTitle: '',
 		budgetPSC: 'Volgeneau VE',
@@ -65,6 +66,12 @@ export default function OrderForm(props) {
 		}
 	}, []);
 
+	useEffect(
+		() => {
+			console.log(fireKey);
+		},
+		[ fireKey ]
+	);
 	const database = useDatabase();
 	const ref = database.ref('orders');
 
@@ -73,7 +80,7 @@ export default function OrderForm(props) {
 		props.fireKey ? (newRef = ref.child(props.fireKey)) : (newRef = ref.push());
 		newRef.set({ ...data, orderTotal: orderTotal, numItems: numItems });
 		setStatus(true);
-		console.log(newRef);
+		setFireKey(newRef._delegate._path.pieces_[1]);
 	};
 
 	const addItem = () => {
@@ -174,7 +181,12 @@ export default function OrderForm(props) {
 			{/* ITEMS DESC QUANTITY and PRICE */}
 			<Divider my="5" />
 			{Array.from(Array(numItems), (e, i) => (
-				<Flex my={{ base: '6', md: '1' }} justifyContent="center" flexWrap={{ base: 'wrap', md: 'nowrap' }}>
+				<Flex
+					my={{ base: '6', md: '1' }}
+					justifyContent="center"
+					flexWrap={{ base: 'wrap', md: 'nowrap' }}
+					key={i}
+				>
 					<InputGroup w="600px">
 						<InputLeftAddon children={i + 1} />
 						<Input
@@ -310,10 +322,15 @@ export default function OrderForm(props) {
 			</Flex>
 
 			<Flex my="5" justifyContent="center">
-				<Button colorScheme={status ? 'teal' : 'blue'} onClick={addOrder}>
+				<Button mx="2" colorScheme={status ? 'teal' : 'blue'} onClick={addOrder}>
 					{status && <CheckIcon mx="2" />}
 					{status ? 'Order Saved' : 'Save Order'}
 				</Button>
+				<Link style={{ textDecoration: 'none' }} isExternal href={`/pdf/pdf.html?fireKey=${fireKey}`}>
+					<Button mx="2" isDisabled={!fireKey} colorScheme="teal">
+						<SpinnerIcon mx="2" />Generate PDF
+					</Button>
+				</Link>
 			</Flex>
 			<Text align="center">{status}</Text>
 		</Box>

@@ -100,7 +100,6 @@ export default function OrderReview() {
 			)}
 			{showOrder.show && (
 				<Box my="6">
-					<OrderForm data={showOrder.data} fireKey={showOrder.key} />
 					<Flex alignItems="center" justifyContent="center">
 						<Button mx="2" colorScheme="red" onClick={() => removeOrder(showOrder.key)}>
 							<DeleteIcon className="icon" mx="2" />
@@ -124,6 +123,7 @@ export default function OrderReview() {
 							Copy Order
 						</Button>
 					</Flex>
+					<OrderForm data={showOrder.data} fireKey={showOrder.key} />
 				</Box>
 			)}
 			<Flex justifyContent="center">
