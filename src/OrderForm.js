@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import 'firebase/database';
 import { useState, useEffect } from 'react';
-import { useDatabase, useDatabaseListData, useDatabaseObjectData, useUser } from 'reactfire';
+import { useDatabase, useUser, useSigninCheck } from 'reactfire';
 import { CheckIcon, SpinnerIcon } from '@chakra-ui/icons';
 
 export default function OrderForm(props) {
@@ -22,6 +22,8 @@ export default function OrderForm(props) {
 	const [ numItems, setNumItems ] = useState(4);
 	const [ orderTotal, setOrderTotal ] = useState(0);
 	const [ fireKey, setFireKey ] = useState(props.fireKey || false);
+	const { signinStatus, data: signinResult } = useSigninCheck();
+
 	const [ data, setData ] = useState({
 		orderTitle: 'Order Title',
 		budgetPSC: 'Volgeneau VE',
@@ -31,18 +33,21 @@ export default function OrderForm(props) {
 		giftLtr: 'FK',
 		giftAct: '66040'
 	});
+
 	const handleChange = (event) => {
 		setData({ ...data, [event.target.name]: event.target.value });
-		console.log(data);
+
 		setStatus(false);
 	};
 
+	//update checked variable on input changes
 	const handleCheck = (event) => {
 		setData({ ...data, [event.target.name]: event.target.checked && 'checked' });
-		console.log(data);
+
 		setStatus(false);
 	};
 
+	/// everytime the order data is changed , calculate the totals
 	useEffect(
 		() => {
 			let counter = 0;
@@ -59,6 +64,8 @@ export default function OrderForm(props) {
 		[ data ]
 	);
 
+	//on the load of the page, check if props are passed and set it as the order data
+
 	useEffect(() => {
 		if (props.data) {
 			setData(props.data);
@@ -68,10 +75,26 @@ export default function OrderForm(props) {
 
 	useEffect(
 		() => {
-			console.log(fireKey);
+			console.log('firekey', fireKey);
+			// if (!fireKey) {
+			// 	setData({ ...data, requestor: user.displayName });
+			// }
 		},
 		[ fireKey ]
 	);
+
+	useEffect(() => {
+		//sign in result has signed in==true
+		//and user.displayname .email
+		console.log('im here', signinStatus);
+		if (signinStatus !== 'loading' && signinResult && signinResult.signedIn == true) {
+			console.log(signinStatus, 'filling requestor', signinResult);
+			if (signinResult.signedIn == true && !fireKey) {
+				setData({ ...data, requestor: signinResult.user.displayName });
+			}
+		}
+	}, []);
+
 	const database = useDatabase();
 	const ref = database.ref('orders');
 
@@ -86,6 +109,10 @@ export default function OrderForm(props) {
 	const addItem = () => {
 		setNumItems(numItems + 1);
 	};
+
+	if (signinStatus === 'loading') {
+		return <SpinnerIcon />;
+	}
 
 	return (
 		<Box
