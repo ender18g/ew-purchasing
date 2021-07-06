@@ -3,17 +3,14 @@ import {
 	Box,
 	Text,
 	Spinner,
-	Input,
 	Flex,
 	Button,
 	Heading,
-	OrderedList,
 	Link,
 	Table,
 	Tr,
 	Th,
 	Tbody,
-	Tfoot,
 	TableCaption,
 	Td,
 	Thead
@@ -123,7 +120,7 @@ export default function OrderReview() {
 							Copy Order
 						</Button>
 					</Flex>
-					<OrderForm data={showOrder.data} fireKey={showOrder.key} />
+					<OrderForm data={showOrder.data} fireKey={showOrder.key} type="review" />
 				</Box>
 			)}
 			<Flex justifyContent="center">

@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import 'firebase/database';
 import { useState, useEffect } from 'react';
-import { useDatabase, useUser, useSigninCheck } from 'reactfire';
+import { useDatabase, useSigninCheck } from 'reactfire';
 import { CheckIcon, SpinnerIcon } from '@chakra-ui/icons';
 
 export default function OrderForm(props) {
@@ -73,25 +73,14 @@ export default function OrderForm(props) {
 		}
 	}, []);
 
-	useEffect(
-		() => {
-			console.log('firekey', fireKey);
-			// if (!fireKey) {
-			// 	setData({ ...data, requestor: user.displayName });
-			// }
-		},
-		[ fireKey ]
-	);
-
 	useEffect(() => {
 		//sign in result has signed in==true
 		//and user.displayname .email
+		// You know that it is a new order if there is no existing firekey
 		console.log('im here', signinStatus);
-		if (signinStatus !== 'loading' && signinResult && signinResult.signedIn == true) {
-			console.log(signinStatus, 'filling requestor', signinResult);
-			if (signinResult.signedIn == true && !fireKey) {
-				setData({ ...data, requestor: signinResult.user.displayName });
-			}
+
+		if (props.type == 'new') {
+			setData({ ...data, requestor: signinResult.user.displayName, requestorEmail: signinResult.user.email });
 		}
 	}, []);
 
@@ -110,15 +99,14 @@ export default function OrderForm(props) {
 		setNumItems(numItems + 1);
 	};
 
-	if (signinStatus === 'loading') {
-		return <SpinnerIcon />;
-	}
+	// if (signinStatus === 'loading') {
+	// 	return <SpinnerIcon />;
+	// }
 
 	return (
 		<Box
 			my="6"
 			mx={{ base: '3', xl: '20' }}
-			bg="gray.50"
 			borderRadius="md"
 			py="10"
 			px={{ base: '1', xl: '20' }}
@@ -164,6 +152,7 @@ export default function OrderForm(props) {
 					placeholder="Requestor"
 					isInvalid={!data.requestor}
 					mx="1"
+					isReadOnly={props.type === 'new'}
 				/>
 				<Input
 					onChange={handleChange}

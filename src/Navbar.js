@@ -8,10 +8,10 @@ import { Auth } from './Auth';
 
 const Navbar = (props) => {
 	return (
-		<Flex boxShadow="lg" justify="space-between" align="center" bg="blue.700" paddingX={2} paddingY={2} w="100%">
+		<Flex boxShadow="lg" justify="space-between" align="center" bg="blue.700" paddingX={2} paddingY={1} w="100%">
 			<Flex justify="center" align="center">
 				<Flex display={{ base: 'none', md: 'flex' }}>
-					<Image className="nav-logo" boxSize="50px" src={logo} />
+					<Image className="nav-logo" boxSize="40px" src={logo} />
 				</Flex>
 				<Heading
 					mx="5"
@@ -43,9 +43,9 @@ const Navbar = (props) => {
 						Review
 					</Text>
 				</NavLink>
-				<NavLink w="100px" className="header-link" to="/">
-					<Auth />
-				</NavLink>
+
+				<Auth />
+
 				{/* <Box display={{ base: 'none', md: 'flex' }}>
 					<ColorModeSwitcher />
 				</Box> */}

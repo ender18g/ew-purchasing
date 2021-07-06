@@ -6,8 +6,10 @@ import Home from './Home';
 import Navbar from './Navbar';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import { Auth } from './Auth';
+import { AuthWrapper, Auth } from './Auth';
 import 'firebase/auth';
+
+const loginMessage = 'Please login';
 
 function App() {
 	return (
@@ -15,8 +17,24 @@ function App() {
 			<Navbar />
 			<Switch>
 				<Route exact path="/" component={Home} />
-				<Route exact path="/form" component={OrderForm} />
-				<Route exact path="/review" component={OrderReview} />
+				<Route
+					exact
+					path="/form"
+					render={() => (
+						<AuthWrapper fallback={<Home message={loginMessage} />}>
+							<OrderForm type="new" />
+						</AuthWrapper>
+					)}
+				/>
+				<Route
+					exact
+					path="/review"
+					render={() => (
+						<AuthWrapper fallback={<Home message={loginMessage} />}>
+							<OrderReview />
+						</AuthWrapper>
+					)}
+				/>
 			</Switch>
 		</ChakraProvider>
 	);

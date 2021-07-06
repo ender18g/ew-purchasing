@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import { FirebaseAppProvider } from 'reactfire';
 import { BrowserRouter } from 'react-router-dom';
+import 'firebase/auth';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyC-IH4GiQKEh5qtZZV72VzZHHbZKPI6sFw',

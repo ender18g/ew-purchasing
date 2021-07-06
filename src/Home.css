@@ -74,6 +74,16 @@ body {
 	margin-bottom: 5vh;
 }
 
+.heading-message {
+	color: white;
+	font-size: 4em;
+	letter-spacing: 10px;
+	text-shadow: 1px 1px 5px rgba(0, 0, 0, .8);
+	margin: 0;
+	font-weight: 300;
+	backface-visibility: hidden;
+}
+
 @keyframes slideLeft {
 	0% {
 		transform: translateX(-10%);
