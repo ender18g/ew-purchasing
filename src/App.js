@@ -9,7 +9,7 @@ import './App.css';
 import { AuthWrapper, Auth } from './Auth';
 import 'firebase/auth';
 
-const loginMessage = 'Please login';
+const loginMessage = 'Please Login';
 
 function App() {
 	return (
