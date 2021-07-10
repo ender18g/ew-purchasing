@@ -18,8 +18,8 @@ import {
 import { DeleteIcon, EditIcon, CopyIcon } from '@chakra-ui/icons';
 import 'firebase/database';
 import { useState } from 'react';
-import { useDatabase, useDatabaseList, useDatabaseListData, useDatabaseObjectData, useUser } from 'reactfire';
-import OrderForm from './OrderForm';
+import { useDatabase, useDatabaseObjectData } from 'reactfire';
+import OrderPage from './OrderPage';
 
 export default function OrderReview() {
 	const database = useDatabase();
@@ -120,7 +120,7 @@ export default function OrderReview() {
 							Copy Order
 						</Button>
 					</Flex>
-					<OrderForm data={showOrder.data} fireKey={showOrder.key} type="review" />
+					<OrderPage data={showOrder.data} fireKey={showOrder.key} type="review" />
 				</Box>
 			)}
 			<Flex justifyContent="center">

@@ -37,6 +37,11 @@ const Navbar = (props) => {
 						Order
 					</Text>
 				</NavLink>
+				<NavLink w="100px" className="header-link" to="/vendor">
+					<Text mx={{ base: '1', md: '5' }} fontSize="md">
+						Vendors
+					</Text>
+				</NavLink>
 
 				<NavLink w="100px" className="header-link" to="/review">
 					<Text mx={{ base: '1', md: '5' }} fontSize="md">
