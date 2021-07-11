@@ -13,3 +13,8 @@
 .tableRow {
 	transition: .5s ease;
 }
+
+.optionRed {
+	color: red;
+	background: green;
+}

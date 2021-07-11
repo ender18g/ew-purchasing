@@ -20,25 +20,42 @@ import { useDatabase, useSigninCheck, useDatabaseObjectData } from 'reactfire';
 export default function VendorPage() {
 	const database = useDatabase();
 	const databaseRef = database.ref('889');
+	//status is whether loading the databse, list is obj with vendor / date
 	const { status, data: vendorList } = useDatabaseObjectData(databaseRef);
+	//fileURL is storage url
 	const [ fileURL, setFileURL ] = useState('');
+	//sleected is the current vendor KEY
 	const [ selected, setSelected ] = useState({ url: '' });
+	// this will make button turn green when saved
+	const [ saved, setSaved ] = useState(false);
 	// Button that will add an order to an existing fireky OR to a newly generated Fire key
+
 	const addItem = () => {
 		const newRef = databaseRef.push();
-		newRef.set({ ...data, url: fileURL });
+		newRef.set({ ...data, url: fileURL, dateObject: makeDate(data.date) });
+		setSaved(true);
 	};
 
 	const [ data, setData ] = useState({
 		vendor: ''
 	});
+
+	//Change is used for the INPUTS
 	const handleChange = (event) => {
 		setData({ ...data, [event.target.name]: event.target.value });
+	};
+
+	const makeDate = (dateString) => {
+		const dateArray = dateString.split('-');
+		const dateObject = new Date().setFullYear(dateArray[0], dateArray[1], dateArray[2]);
+		return dateObject;
 	};
 
 	if (status === 'loading') {
 		return <Spinner />;
 	}
+
+	//Select is used for the SELCT drop down
 	const handleSelect = (event) => {
 		console.log('changed');
 		const selectedVendor = vendorList[event.target.value];
@@ -46,6 +63,13 @@ export default function VendorPage() {
 		setSelected(selectedVendor);
 	};
 
+	const getDays = (date) => {
+		console.log(date);
+		const today = new Date();
+		const diffTime = today - date;
+		const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+		return diffDays;
+	};
 	console.log(vendorList);
 	return (
 		<Box
@@ -69,15 +93,23 @@ export default function VendorPage() {
 
 			<Flex justifyContent="left">
 				<Select onChange={handleSelect} mx="1" variant="outline" placeholder="Select Vendor">
-					{Object.keys(vendorList).map((k, i) => (
-						<option value={k} key={k}>
-							{vendorList[k].vendor}
-						</option>
-					))}
+					{Object.keys(vendorList).map((k, i) => {
+						//avoid the database parent getting added to the list
+						if (typeof vendorList[k] === 'object') {
+							return (
+								<option value={k} key={k}>
+									{vendorList[k].vendor}
+									&nbsp;&nbsp;&nbsp;
+									{vendorList[k].date}
+									{getDays(vendorList[k].dateObject) < 360 ? '✅ ' : '❌'}
+								</option>
+							);
+						}
+					})}
 				</Select>
 			</Flex>
 			<Link style={{ textDecoration: 'none' }} isExternal href={selected.url}>
-				<Button colorScheme="teal" m="1">
+				<Button isDisabled={!selected.url} colorScheme="teal" m="1">
 					Download 889
 				</Button>
 			</Link>
@@ -111,10 +143,20 @@ export default function VendorPage() {
 				<Flex m="1" w="500px">
 					<FileUploader setFileURL={setFileURL} />
 				</Flex>
-				<Button isDisabled={!fileURL} colorScheme="teal" m="1" onClick={addItem}>
-					Add New 889
+				<Button isDisabled={!fileURL} colorScheme={saved ? 'teal' : 'blue'} m="1" onClick={addItem}>
+					{saved ? 'Added' : 'Add New 889'}
 				</Button>
 			</Box>
+			<Heading my="2" size="md" fontWeight="400">
+				Vendor not listed?
+			</Heading>
+			<Link
+				color="teal"
+				isExternal
+				href="https://firebasestorage.googleapis.com/v0/b/ew-purchasing.appspot.com/o/documents%2F889_Representation_Form_-_31_Aug_20.pdf?alt=media&token=f2fb09fe-cb26-4dd7-aa77-afb1ab070751"
+			>
+				Download a Blank 889 Form (Fillable PDF)
+			</Link>
 		</Box>
 	);
 }
