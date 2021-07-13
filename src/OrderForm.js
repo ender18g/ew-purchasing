@@ -33,10 +33,6 @@ export default function OrderForm(props) {
 
 	return (
 		<Box>
-			<Heading fontWeight="200" letterSpacing=".1em" size="lg" align="center">
-				{data.orderTitle}
-			</Heading>
-
 			{/* TITLE AND BUDGET CODE */}
 			<Flex m="2" justifyContent="center">
 				<Input
@@ -276,9 +272,14 @@ export default function OrderForm(props) {
 			</Flex>
 
 			<Flex my="5" justifyContent="center">
-				<Button mx="2" colorScheme={status ? 'teal' : 'blue'} onClick={addOrder}>
+				<Button
+					mx="2"
+					isDisabled={props.disableSubmit}
+					colorScheme={status ? 'teal' : 'blue'}
+					onClick={addOrder}
+				>
 					{status && <CheckIcon mx="2" />}
-					{status ? 'Order Saved' : 'Save Order'}
+					{status ? 'Order Submitted' : 'Submit Order'}
 				</Button>
 				<Link style={{ textDecoration: 'none' }} isExternal href={`/pdf/pdf.html?fireKey=${fireKey}`}>
 					<Button mx="2" isDisabled={!fireKey} colorScheme="teal">

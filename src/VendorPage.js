@@ -16,17 +16,14 @@ import FileUploader from './FileUploader';
 import 'firebase/database';
 import { useState, useEffect } from 'react';
 import { useDatabase, useSigninCheck, useDatabaseObjectData } from 'reactfire';
+import VendorSelect from './VendorSelect';
 
 export default function VendorPage() {
 	const database = useDatabase();
 	const databaseRef = database.ref('889');
 	//status is whether loading the databse, list is obj with vendor / date
-	const { status, data: vendorList } = useDatabaseObjectData(databaseRef);
 	//fileURL is storage url
 	const [ fileURL, setFileURL ] = useState('');
-	//sleected is the current vendor KEY
-	const [ selected, setSelected ] = useState({ url: '' });
-	// this will make button turn green when saved
 	const [ saved, setSaved ] = useState(false);
 	// Button that will add an order to an existing fireky OR to a newly generated Fire key
 
@@ -51,26 +48,6 @@ export default function VendorPage() {
 		return dateObject;
 	};
 
-	if (status === 'loading') {
-		return <Spinner />;
-	}
-
-	//Select is used for the SELCT drop down
-	const handleSelect = (event) => {
-		console.log('changed');
-		const selectedVendor = vendorList[event.target.value];
-		console.log(selectedVendor);
-		setSelected(selectedVendor);
-	};
-
-	const getDays = (date) => {
-		console.log(date);
-		const today = new Date();
-		const diffTime = today - date;
-		const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-		return diffDays;
-	};
-	console.log(vendorList);
 	return (
 		<Box
 			my="6"
@@ -92,27 +69,9 @@ export default function VendorPage() {
 			</Box>
 
 			<Flex justifyContent="left">
-				<Select onChange={handleSelect} mx="1" variant="outline" placeholder="Select Vendor">
-					{Object.keys(vendorList).map((k, i) => {
-						//avoid the database parent getting added to the list
-						if (typeof vendorList[k] === 'object') {
-							return (
-								<option value={k} key={k}>
-									{vendorList[k].vendor}
-									&nbsp;&nbsp;&nbsp;
-									{vendorList[k].date}
-									{getDays(vendorList[k].dateObject) < 360 ? '✅ ' : '❌'}
-								</option>
-							);
-						}
-					})}
-				</Select>
+				<VendorSelect setSelection={(v) => console.log(v)} />
 			</Flex>
-			<Link style={{ textDecoration: 'none' }} isExternal href={selected.url}>
-				<Button isDisabled={!selected.url} colorScheme="teal" m="1">
-					Download 889
-				</Button>
-			</Link>
+
 			<Box my="10">
 				<Heading my="2" size="md" fontWeight="400">
 					Upload a new form:
@@ -141,7 +100,7 @@ export default function VendorPage() {
 				</Flex>
 
 				<Flex m="1" w="500px">
-					<FileUploader setFileURL={setFileURL} />
+					<FileUploader setFileURL={setFileURL} subfolder="889" />
 				</Flex>
 				<Button isDisabled={!fileURL} colorScheme={saved ? 'teal' : 'blue'} m="1" onClick={addItem}>
 					{saved ? 'Added' : 'Add New 889'}

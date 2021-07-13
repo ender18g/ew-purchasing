@@ -5,7 +5,7 @@ import { useStorage, useStorageDownloadURL, useStorageTask } from 'reactfire';
 import { Box, Text, Input, InputGroup, InputLeftAddon } from '@chakra-ui/react';
 
 const FileUploader = (props) => {
-	const { setFileURL } = props;
+	const { setFileURL, subfolder } = props;
 
 	const [ ref, setRef ] = useState();
 	const [ uploadTask, setUploadTask ] = useState();
@@ -15,7 +15,7 @@ const FileUploader = (props) => {
 		//get the file string from input
 		const file = e.target.files[0];
 		//make a firestore reference
-		const newRef = storage.ref('documents').child(file.name);
+		const newRef = storage.ref('documents').child(subfolder).child(file.name);
 		//save the reference
 		setRef(newRef);
 		//put the file there
@@ -33,9 +33,9 @@ const FileUploader = (props) => {
 	};
 
 	return (
-		<Box>
+		<Box p="1">
 			<InputGroup>
-				<InputLeftAddon children="Upload 889:" />
+				<InputLeftAddon children={`Upload ${subfolder}`} />
 				<Input mx="1" type="file" accept=".pdf" onChange={handleChange} />
 			</InputGroup>
 		</Box>
