@@ -193,6 +193,7 @@ export default function OrderForm(props) {
 						name="estShipping"
 						value={data.estShipping}
 						placeholder="Estimated Shipping"
+						isInvalid={!data.estShipping}
 					/>
 				</InputGroup>
 

@@ -116,7 +116,11 @@ export default function OrderPage(props) {
 			date: 'Select a date',
 			desc1: 'Include at least one item',
 			qty1: 'Provide quantity of item',
-			unitPrice1: 'Provide item price'
+			unitPrice1: 'Provide item price',
+			estShipping: 'Provide Estimate Shipping',
+			requestor: 'Provide requestor full name',
+			budgetPSC: 'Provide budget PSC',
+			budgetPOC: 'Provide budget POC'
 		};
 		for (let property in requiredItems) {
 			console.log(property, data[property]);
