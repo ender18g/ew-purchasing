@@ -28,7 +28,8 @@ export default function OrderForm(props) {
 		status,
 		numItems,
 		orderTotal,
-		fireKey
+		fireKey,
+		type
 	} = props;
 
 	return (
@@ -38,12 +39,12 @@ export default function OrderForm(props) {
 				<Input
 					isRequired
 					onChange={handleChange}
-					name="orderTitle"
+					name={type === 'account' ? 'accountName' : 'orderTitle'}
 					width="800px"
-					value={data.orderTitle}
+					value={type === 'account' ? data.accountName : data.orderTitle}
 					placeholder="The title of your order"
 					errorBorderColor="crimson"
-					isInvalid={!data.orderTitle}
+					isInvalid={type === 'account' ? !data.accountName : !data.orderTitle}
 					mx="1"
 				/>
 				<Input
@@ -67,7 +68,7 @@ export default function OrderForm(props) {
 					placeholder="Requestor"
 					isInvalid={!data.requestor}
 					mx="1"
-					isReadOnly={props.type === 'new'}
+					isReadOnly={type === 'new'}
 				/>
 				<Input
 					onChange={handleChange}
@@ -280,7 +281,7 @@ export default function OrderForm(props) {
 					onClick={addOrder}
 				>
 					{status && <CheckIcon mx="2" />}
-					{status ? 'Order Submitted' : 'Submit Order'}
+					{status ? 'Submitted' : 'Submit'}
 				</Button>
 				<Link style={{ textDecoration: 'none' }} isExternal href={`/pdf/pdf.html?fireKey=${fireKey}`}>
 					<Button mx="2" isDisabled={!fireKey} colorScheme="teal">

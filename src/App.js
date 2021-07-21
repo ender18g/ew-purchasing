@@ -9,6 +9,7 @@ import './App.css';
 import { AuthWrapper, Auth } from './Auth';
 import 'firebase/auth';
 import VendorPage from './VendorPage';
+import TemplatePage from './TemplatePage';
 
 const loginMessage = 'Please Login';
 
@@ -42,6 +43,15 @@ function App() {
 					render={() => (
 						<AuthWrapper fallback={<Home message={loginMessage} />}>
 							<OrderReview />
+						</AuthWrapper>
+					)}
+				/>
+				<Route
+					exact
+					path="/accounts"
+					render={() => (
+						<AuthWrapper fallback={<Home message={loginMessage} />}>
+							<TemplatePage />
 						</AuthWrapper>
 					)}
 				/>

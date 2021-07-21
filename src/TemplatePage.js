@@ -5,10 +5,9 @@ import { useState, useEffect } from 'react';
 import { useDatabase, useSigninCheck } from 'reactfire';
 import OrderForm from './OrderForm';
 import FileUploader from './FileUploader';
-import VendorSelect from './VendorSelect';
 import AccountSelect from './AccountSelect';
 
-export default function OrderPage(props) {
+export default function TemplatePage(props) {
 	//pass in props.data and props.type (new) props.fireKey
 
 	//status is true when order has been saved
@@ -21,17 +20,13 @@ export default function OrderPage(props) {
 	const [ message, setMessage ] = useState('');
 
 	const [ data, setData ] = useState({
-		orderTitle: '',
-		budgetPSC: 'Volgeneau VE',
-		giftYesNo: 'Checked',
-		costCtrPOC: 'Michael Cornelius',
-		budgetPOC: 'Millie Pierce',
-		giftLtr: 'FK',
-		giftAct: '66040',
-		merchantFormURL: '',
-		quoteURL: '',
-		accountKey: '',
-		accountName: ''
+		orderTitle: 'Account Name',
+		budgetPSC: '',
+		giftYesNo: '',
+		costCtrPOC: '',
+		budgetPOC: '',
+		giftLtr: '',
+		giftAct: ''
 	});
 	// this updates input values
 	const handleChange = (event) => {
@@ -47,13 +42,10 @@ export default function OrderPage(props) {
 		setStatus(false);
 	};
 
-	const setQuoteURL = (url) => {
-		setData({ ...data, quoteURL: url });
-	};
-
 	/// everytime the order data is changed , calculate the totals
 	useEffect(
 		() => {
+			console.log('Data Changed', data);
 			let counter = 0;
 			for (let i = 1; i < +25; i++) {
 				if (!isNaN(data[`qty${i}`]) && !isNaN(data[`unitPrice${i}`])) {
@@ -81,13 +73,13 @@ export default function OrderPage(props) {
 		//and user.displayname .email
 		// You know that it is a new order if there is no existing firekey
 		console.log('**User**', signinStatus);
-		if (props.type == 'new') {
+		if (props.type === 'new') {
 			setData({ ...data, requestor: signinResult.user.displayName, requestorEmail: signinResult.user.email });
 		}
 	}, []);
 
 	const database = useDatabase();
-	const orderRef = database.ref('orders');
+	const orderRef = database.ref('accounts');
 	// Button that will add an order to an existing fireky OR to a newly generated Fire key
 	const addOrder = () => {
 		const genMessage = invalidForm();
@@ -106,32 +98,22 @@ export default function OrderPage(props) {
 		setNumItems(numItems + 1);
 	};
 
-	const selectVendor = (vendorObj) => {
-		console.log(vendorObj);
-		setData({ ...data, merchant: vendorObj.vendor, merchantFormURL: vendorObj.url });
-	};
-
+	//handles the selection of an account
 	const handleAccount = (accountObj) => {
 		console.log('Handling Account:', accountObj);
-		setData({ ...data, ...accountObj });
+		setData(accountObj);
 	};
 
 	const invalidForm = () => {
 		const requiredItems = {
-			quoteURL: 'Upload a PDF quote',
-			merchantFormURL: 'Select an 889 form',
-			orderTitle: 'Give your order a title',
-			date: 'Select a date',
-			desc1: 'Include at least one item',
-			qty1: 'Provide quantity of item',
-			unitPrice1: 'Provide item price',
-			estShipping: 'Provide Estimate Shipping',
-			requestor: 'Provide requestor full name',
+			orderTitle: 'Give your account a name',
 			budgetPSC: 'Provide budget PSC',
-			budgetPOC: 'Provide budget POC'
+			budgetPOC: 'Provide budget POC',
+			giftLtr: 'Provid Gift Letter',
+			giftAct: 'Provid Gift Account Number'
 		};
+
 		for (let property in requiredItems) {
-			console.log(property, data[property]);
 			if (!data[property]) {
 				return requiredItems[property];
 			}
@@ -140,74 +122,42 @@ export default function OrderPage(props) {
 	};
 
 	return (
-		<Box
-			my="6"
-			mx={{ base: '3', xl: '20' }}
-			borderRadius="md"
-			py="10"
-			px={{ base: '1', xl: '20' }}
-			border="2px"
-			borderColor="gray.100"
-			shadow="md"
-		>
-			<Heading fontWeight="200" letterSpacing=".1em" size="lg" align="center">
-				{data.orderTitle || 'Create Your Order'}
-			</Heading>
-
-			{/* THIS IS FOR QUOTE URL AND SELECT 889 */}
-			<Flex
-				bg="gray.100"
-				flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-				justifyContent="space-around"
-				alignItems="center"
-				borderRadius="md"
-				my="10"
-				mx="2"
-			>
-				<Flex border={data.accountName ? '0px' : '2px'} borderColor="red.500" borderRadius="md" m="1" w="500px">
-					<AccountSelect handleAccount={handleAccount} accountKey={data.accountKey} />
-				</Flex>
-				<Flex border={data.quoteURL ? '0px' : '2px'} borderColor="red.500" borderRadius="md" m="1" w="500px">
-					<FileUploader setFileURL={setQuoteURL} subfolder="Quote" />
-				</Flex>
-				<Flex
-					border={data.merchantFormURL ? '0px' : '2px'}
-					borderColor="red.500"
-					borderRadius="md"
-					m="1"
-					w="500px"
-				>
-					<VendorSelect setSelection={selectVendor} />
-				</Flex>
+		<Box>
+			<Flex m="4" justifyContent="center">
+				<AccountSelect handleAccount={handleAccount} />
 			</Flex>
-			<OrderForm
-				data={data}
-				setData={setData}
-				handleChange={handleChange}
-				handleCheck={handleCheck}
-				addItem={addItem}
-				addOrder={addOrder}
-				status={status}
-				numItems={numItems}
-				orderTotal={orderTotal}
-				fireKey={fireKey}
-				disableSubmit={invalidForm() ? true : false}
-			/>
-			<Heading textAlign="center" size="lg" textColor="red" fontWeight="600">
-				{message}
-			</Heading>
+			<Box
+				my="6"
+				mx={{ base: '3', xl: '20' }}
+				borderRadius="md"
+				py="10"
+				px={{ base: '1', xl: '20' }}
+				border="2px"
+				borderColor="gray.100"
+				shadow="md"
+			>
+				<Heading fontWeight="200" letterSpacing=".1em" size="lg" align="center">
+					{data.orderTitle || 'New Account Name'}
+				</Heading>
 
-			{/* Only show the review forms buttons if its an order review */}
-			{props.type !== 'new' && (
-				<Flex mt="1" justifyContent="center">
-					<Link m="1" isExternal style={{ textDecoration: 'none' }} href={data.quoteURL}>
-						<Button>Review Quote</Button>
-					</Link>
-					<Link m="1" isExternal style={{ textDecoration: 'none' }} href={data.merchantFormURL}>
-						<Button>Review 889</Button>
-					</Link>
-				</Flex>
-			)}
+				<OrderForm
+					data={data}
+					setData={setData}
+					handleChange={handleChange}
+					handleCheck={handleCheck}
+					addItem={addItem}
+					addOrder={addOrder}
+					status={status}
+					numItems={numItems}
+					orderTotal={orderTotal}
+					fireKey={fireKey}
+					disableSubmit={invalidForm() ? true : false}
+					type="account"
+				/>
+				<Heading textAlign="center" size="lg" textColor="red" fontWeight="600">
+					{message}
+				</Heading>
+			</Box>
 		</Box>
 	);
 }
