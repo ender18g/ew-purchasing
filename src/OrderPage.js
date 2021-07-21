@@ -103,7 +103,12 @@ export default function OrderPage(props) {
 		}
 		let newRef;
 		props.fireKey ? (newRef = orderRef.child(props.fireKey)) : (newRef = orderRef.push());
-		newRef.set({ ...data, orderTotal: orderTotal, numItems: numItems });
+		newRef.set({
+			...data,
+			orderTotal: orderTotal,
+			numItems: numItems,
+			estShipping: parseFloat(data.estShipping).toFixed(2)
+		});
 		setStatus(true);
 		setFireKey(newRef._delegate._path.pieces_[1]);
 	};
