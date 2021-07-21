@@ -22,12 +22,14 @@ export default function OrderPage(props) {
 
 	const [ data, setData ] = useState({
 		orderTitle: '',
-		budgetPSC: 'Volgeneau VE',
-		giftYesNo: 'Checked',
-		costCtrPOC: 'Michael Cornelius',
-		budgetPOC: 'Millie Pierce',
-		giftLtr: 'FK',
-		giftAct: '66040',
+		budgetPSC: '',
+		giftYesNo: '',
+		costCtrPOC: '',
+		costCtrEmail: '',
+		budgetPOCEmail: '',
+		budgetPOC: '',
+		giftLtr: '',
+		giftAct: '',
 		merchantFormURL: '',
 		quoteURL: '',
 		accountKey: '',
@@ -80,7 +82,7 @@ export default function OrderPage(props) {
 		//sign in result has signed in==true
 		//and user.displayname .email
 		// You know that it is a new order if there is no existing firekey
-		console.log('**User**', signinStatus);
+		console.log('**User**', signinResult);
 		if (props.type == 'new') {
 			setData({ ...data, requestor: signinResult.user.displayName, requestorEmail: signinResult.user.email });
 		}
@@ -131,12 +133,25 @@ export default function OrderPage(props) {
 			budgetPOC: 'Provide budget POC'
 		};
 		for (let property in requiredItems) {
-			console.log(property, data[property]);
 			if (!data[property]) {
 				return requiredItems[property];
 			}
 		}
 		return false;
+	};
+
+	const createEmail = () => {
+		const recipientName = data.budgetPOC.split(' ')[0];
+		const recipientEmail = data.budgetPOCEmail;
+		const pscText = data.budgetPSC.split(' ')[1];
+		let linkString = `mailto:${recipientEmail}?cc${data.requestorEmail}`;
+		linkString += `&subject=New ${pscText} order`;
+		linkString += `&body=${recipientName},`;
+		linkString += `%0A%0AAttached is a PCO, quote and 889 for ${data.orderTitle}. These items are being charged against our FY21 WRC allocation of the ${data.budgetPSC} spend plan.`;
+		linkString += `%0AThe net total of these purchases is $${data.orderTotal} including $${data.estShipping} in shipping. This brings our estimated ${pscText} Fund allocation balance down to [ACCOUNT BALANCE] `;
+		linkString += `%0A%0A-Mike`;
+
+		return linkString;
 	};
 
 	return (
@@ -198,13 +213,16 @@ export default function OrderPage(props) {
 			</Heading>
 
 			{/* Only show the review forms buttons if its an order review */}
-			{props.type !== 'new' && (
+			{props.type === 'review' && (
 				<Flex mt="1" justifyContent="center">
 					<Link m="1" isExternal style={{ textDecoration: 'none' }} href={data.quoteURL}>
 						<Button>Review Quote</Button>
 					</Link>
 					<Link m="1" isExternal style={{ textDecoration: 'none' }} href={data.merchantFormURL}>
 						<Button>Review 889</Button>
+					</Link>
+					<Link m="1" isExternal style={{ textDecoration: 'none' }} href={createEmail()}>
+						<Button>Create Email</Button>
 					</Link>
 				</Flex>
 			)}

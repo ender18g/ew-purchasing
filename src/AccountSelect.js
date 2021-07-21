@@ -27,8 +27,8 @@ export default function AccountSelect(props) {
 	//status is whether loading the databse, list is obj with vendor / date and url
 	const { status, data: accountList } = useDatabaseObjectData(databaseRef);
 	//fileURL is storage url
-	const [ selectedAccountKey, setSelectedAccountKey ] = useState(props.accountKey || '');
-	// this will make button turn green when saved
+
+	// this will make button turn green when saved\
 
 	//Change is used for the INPUTS
 
@@ -40,7 +40,7 @@ export default function AccountSelect(props) {
 	const handleSelect = (event) => {
 		const accountKey = event.target.value;
 		const selectedItem = accountList[accountKey];
-		setSelectedAccountKey(accountKey);
+
 		handleAccount({ ...selectedItem, accountKey: accountKey });
 	};
 
@@ -49,9 +49,8 @@ export default function AccountSelect(props) {
 			{Object.keys(accountList).map((k, i) => {
 				//avoid the database parent getting added to the list
 				if (typeof accountList[k] === 'object') {
-					console.log(k);
 					return (
-						<option value={k} key={k} selected={selectedAccountKey === k}>
+						<option value={k} key={k} selected={props.accountKey === k}>
 							{accountList[k].accountName}
 						</option>
 					);

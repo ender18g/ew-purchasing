@@ -42,7 +42,7 @@ export default function OrderForm(props) {
 					name={type === 'account' ? 'accountName' : 'orderTitle'}
 					width="800px"
 					value={type === 'account' ? data.accountName : data.orderTitle}
-					placeholder="The title of your order"
+					placeholder="Summary of Order and Use"
 					errorBorderColor="crimson"
 					isInvalid={type === 'account' ? !data.accountName : !data.orderTitle}
 					mx="1"
@@ -222,6 +222,26 @@ export default function OrderForm(props) {
 					value={data.budgetPOC}
 					placeholder="Authorizing Official Name"
 					isInvalid={!data.budgetPOC}
+					mx="1"
+				/>
+			</Flex>
+			<Flex mx="3" justifyContent="center">
+				<Input
+					onChange={handleChange}
+					name="costCtrEmail"
+					width="800px"
+					value={data.costCtrEmail}
+					placeholder="Cost Center Email"
+					isInvalid={!data.costCtrEmail}
+					mx="1"
+				/>
+				<Input
+					onChange={handleChange}
+					name="budgetPOCEmail"
+					width="800px"
+					value={data.budgetPOCEmail}
+					placeholder="Authorizing Official Email"
+					isInvalid={!data.budgetPOCEmail}
 					mx="1"
 				/>
 			</Flex>

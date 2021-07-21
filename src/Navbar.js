@@ -44,7 +44,7 @@ const Navbar = (props) => {
 				</NavLink>
 				<NavLink w="100px" className="header-link" to="/accounts">
 					<Text mx={{ base: '1', md: '5' }} fontSize="md">
-						Account Templates
+						Accounts
 					</Text>
 				</NavLink>
 
