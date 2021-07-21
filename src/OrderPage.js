@@ -33,7 +33,9 @@ export default function OrderPage(props) {
 		merchantFormURL: '',
 		quoteURL: '',
 		accountKey: '',
-		accountName: ''
+		accountName: '',
+		orderTotal: 0,
+		estShipping: ''
 	});
 	// this updates input values
 	const handleChange = (event) => {
@@ -59,7 +61,9 @@ export default function OrderPage(props) {
 			let counter = 0;
 			for (let i = 1; i < +25; i++) {
 				if (!isNaN(data[`qty${i}`]) && !isNaN(data[`unitPrice${i}`])) {
-					counter = counter + data[`qty${i}`] * data[`unitPrice${i}`];
+					let quantity = Number(data[`qty${i}`]);
+					let price = Number(data[`unitPrice${i}`]);
+					counter = counter + quantity * price;
 				}
 			}
 			if (!isNaN(data['estShipping'])) {
@@ -141,10 +145,11 @@ export default function OrderPage(props) {
 	};
 
 	const createEmail = () => {
-		const recipientName = data.budgetPOC.split(' ')[0];
-		const recipientEmail = data.budgetPOCEmail;
+		const recipientName = data.costCtrPOC.split(' ')[0];
+		const recipientEmail = data.costCtrEmail;
+
 		const pscText = data.budgetPSC.split(' ')[1];
-		let linkString = `mailto:${recipientEmail}?cc${data.requestorEmail}`;
+		let linkString = `mailto:${recipientEmail}?cc=${data.requestorEmail}`;
 		linkString += `&subject=New ${pscText} order`;
 		linkString += `&body=${recipientName},`;
 		linkString += `%0A%0AAttached is a PCO, quote and 889 for ${data.orderTitle}. These items are being charged against our FY21 WRC allocation of the ${data.budgetPSC} spend plan.`;

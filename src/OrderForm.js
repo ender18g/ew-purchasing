@@ -188,7 +188,7 @@ export default function OrderForm(props) {
 					+ Add Item
 				</Button>
 				<InputGroup my="2" width="300px">
-					<InputLeftAddon children="$" />
+					<InputLeftAddon children="Shipping $" />
 					<Input
 						onChange={handleChange}
 						name="estShipping"

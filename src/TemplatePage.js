@@ -106,7 +106,7 @@ export default function TemplatePage(props) {
 
 	const invalidForm = () => {
 		const requiredItems = {
-			orderTitle: 'Give your account a name',
+			accountName: 'Give your account a name',
 			budgetPSC: 'Provide budget PSC',
 			budgetPOC: 'Provide budget POC',
 			giftLtr: 'Provid Gift Letter',
@@ -115,6 +115,7 @@ export default function TemplatePage(props) {
 
 		for (let property in requiredItems) {
 			if (!data[property]) {
+				console.log('need', requiredItems[property]);
 				return requiredItems[property];
 			}
 		}
