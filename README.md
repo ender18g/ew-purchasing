@@ -1,3 +1,15 @@
+# EW Purchasing
+
+### This is a react/firebase site that attempts to automate the terrible purchasing process
+
+
+[View the live version hosted on Firebase!](https://ew-purchasing.web.app)
+
+
+***
+### Create React App info below:
+***
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
