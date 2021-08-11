@@ -6,7 +6,7 @@
 [View the live version hosted on Firebase!](https://ew-purchasing.web.app)
 
 
-[Screen shot of site](website_screen.png)
+![Screen shot of site](website_screen.png)
 
 
 ***
