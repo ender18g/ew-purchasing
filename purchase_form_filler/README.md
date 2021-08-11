@@ -1,4 +1,7 @@
-# purchase form filler
+# Python PDF Files
+## THIS FOLDER IS NOT USED FOR THE PDF GENERATION
+
+### Actual PDFs are generated using the [javascript PDF](public/pdf) files
 
 ## Instructions
 
