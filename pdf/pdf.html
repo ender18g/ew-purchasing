@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>WRC Purchasing PDF</title>
+<link rel="stylesheet" href="pdf.css" />
+</head>
+<body>
+<div class="error"></div>
+<form class="url_form hide">
+<div>Upload a PDF form file: <label><input type="file" name="file" /></label></div>
+
+<label>or download one: <input type="text" size="40" value="rq_vg_template.pdf" name="url" /><button role="submit">Download</button></label>
+</form>
+
+<form class="cur_file hide"></form>
+
+<form class="lib_form hide">
+PDF library:
+<label><input type="radio" name="pdflib" value="minipdf" checked="checked" />minipdf</label>
+<label><input type="radio" name="pdflib" value="pdf.js" />PDF.js</label>
+</form>
+
+<h1 class='text-center display-6 generatingText'>Generating your form:</h1>
+<div class="container p-4 justify-content-center spinnerDiv">
+  <div class='row'>
+
+    <img src="mike.gif" class="m-3 mx-auto img-fluid rounded w-25" alt="Mike is frustrated">
+  </div>
+  <div class='row'>
+    <div class=" mx-auto text-center spinner-border text-success" role="status">
+  </div>
+  <span class="visually-hidden">Loading...</span>
+</div>
+</div>
+
+
+<div class="container p-4">
+    <form class="fill_form  m-4 text-center hide"><button type='button' class="btn btn-primary fill" disabled="disabled">Download PDF</button></form>
+
+
+
+    <p class='text-center'>Please note, you must open this in Adobe PDF and edit an item price to make the total cost values calculate and update</p>
+  </div>
+  
+</div>
+<form class="list_form">
+</form>
+
+<div class="loading hide">Loading (this may take a while since PDF.js is gigantic)</div>
+
+<!-- In a real-life scenario, you want to chose EITHER minipdf (smaller) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="minipdf.js"></script>
+
+<!-- .. OR pdf.js (huge, but better compatibility).
+pdf.worker.js is slightly modified to export the actual classes we care about -->
+<script src="pdf.worker.js"></script>
+<script src="minipdf_js.js"></script>
+
+
+<!-- pako and pdfform.js are required either way -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pako/1.0.3/pako.min.js" integrity="sha256-X7u/eQo6oIgWqc5jOmTjQn3loM8Lse0ock76Gkkn/Ro=" crossorigin="anonymous"></script>
+<script src="./pdfform.js"></script>
+
+<!-- FileSaver.js is just needed for the demo, although you'll probably use it in some form as well -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.0.0/FileSaver.min.js"></script>
+
+<script src="pdf.js"></script>
+
+</body>
+</html>
