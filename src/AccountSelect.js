@@ -24,7 +24,7 @@ export default function AccountSelect(props) {
 
 	const database = useDatabase();
 	const databaseRef = database.ref('accounts');
-	//status is whether loading the databse, list is obj with vendor / date and url
+	//status is whether loading the database, list is obj with vendor / date and url
 	const { status, data: accountList } = useDatabaseObjectData(databaseRef);
 	//fileURL is storage url
 
@@ -50,7 +50,7 @@ export default function AccountSelect(props) {
 				//avoid the database parent getting added to the list
 				if (typeof accountList[k] === 'object') {
 					return (
-						<option value={k} key={k} selected={props.accountKey === k}>
+						<option value={k} key={k}>
 							{accountList[k].accountName}
 						</option>
 					);

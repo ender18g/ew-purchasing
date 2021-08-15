@@ -6,6 +6,7 @@ import { useDatabase, useSigninCheck } from 'reactfire';
 import OrderForm from './OrderForm';
 import FileUploader from './FileUploader';
 import AccountSelect from './AccountSelect';
+import { DeleteIcon, EditIcon, CopyIcon } from '@chakra-ui/icons';
 
 export default function TemplatePage(props) {
 	//pass in props.data and props.type (new) props.fireKey
@@ -88,7 +89,8 @@ export default function TemplatePage(props) {
 			return;
 		}
 		let newRef;
-		props.fireKey ? (newRef = orderRef.child(props.fireKey)) : (newRef = orderRef.push());
+		//here we want to add a new order only if a firekey is not selected
+		data.fireKey ? (newRef = orderRef.child(data.fireKey)) : (newRef = orderRef.push());
 		newRef.set({ ...data, orderTotal: orderTotal, numItems: numItems });
 		setStatus(true);
 		setFireKey(newRef._delegate._path.pieces_[1]);
@@ -101,7 +103,8 @@ export default function TemplatePage(props) {
 	//handles the selection of an account
 	const handleAccount = (accountObj) => {
 		console.log('Handling Account:', accountObj);
-		setData(accountObj);
+
+		setData({ ...accountObj, fireKey: accountObj.accountKey });
 	};
 
 	const invalidForm = () => {
@@ -122,10 +125,28 @@ export default function TemplatePage(props) {
 		return false;
 	};
 
+	const removeAccount = () => {
+		orderRef.child(data.fireKey).remove();
+	};
+
 	return (
 		<Box>
 			<Flex m="4" justifyContent="center">
 				<AccountSelect handleAccount={handleAccount} />
+				<Button
+					mx="2"
+					colorScheme="teal"
+					onClick={() => {
+						setData({ ...data, fireKey: '', accountName: 'Duplicate Account Name' });
+					}}
+				>
+					<CopyIcon className="icon" mx="2" />
+					Copy Account
+				</Button>
+				<Button mx="2" colorScheme="red" onClick={removeAccount}>
+					<DeleteIcon className="icon" mx="2" />
+					Delete Account
+				</Button>
 			</Flex>
 			<Box
 				my="6"
@@ -152,6 +173,7 @@ export default function TemplatePage(props) {
 					numItems={numItems}
 					orderTotal={orderTotal}
 					fireKey={fireKey}
+					setFireKey={fireKey}
 					disableSubmit={invalidForm() ? true : false}
 					type="account"
 				/>

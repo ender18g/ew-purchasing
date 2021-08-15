@@ -7,9 +7,15 @@
 	color: white;
 	text-decoration: none !important;
 	letter-spacing: .05em;
+	font-weight: 500;
 }
 
 .header-link:hover {
 	color: #4fd1c5;
-	font-weight: 400;
+	font-weight: 500;
+}
+
+.active-link {
+	color: #4fd1c5;
+	font-weight: 500;
 }
