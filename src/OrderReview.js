@@ -45,7 +45,7 @@ export default function OrderReview() {
 				Order Review
 			</Heading>
 			<AccountWidget orderList={orderList} />
-			<Flex my="5" w="100%">
+			<Flex maxHeight="100vh" my="5" w="100%" overflow="auto">
 				<Table size="sm" colorScheme="facebook">
 					<TableCaption fontSize="md">Click on a row to review order details </TableCaption>
 					<Thead>
