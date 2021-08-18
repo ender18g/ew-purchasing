@@ -51,15 +51,14 @@ const Navbar = (props) => {
 			<Flex align="center">
 				<Flex alignItems="center" display={{ base: 'none', xl: 'flex' }}>
 					<FullMenu menuItems={menuItems} />
-					<Auth />
 				</Flex>
+				<Auth />
 
 				{/* <Box display={{ base: 'none', md: 'flex' }}>
 					<ColorModeSwitcher />
 				</Box> */}
 
 				<Box display={{ base: 'flex', xl: 'none' }}>
-					<Auth />
 					<Hamburger menuItems={menuItems} />
 				</Box>
 			</Flex>

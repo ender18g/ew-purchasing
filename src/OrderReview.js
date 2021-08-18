@@ -20,6 +20,7 @@ import 'firebase/database';
 import { useState } from 'react';
 import { useDatabase, useDatabaseObjectData } from 'reactfire';
 import OrderPage from './OrderPage';
+import AccountWidget from './AccountWidget';
 
 export default function OrderReview() {
 	const database = useDatabase();
@@ -43,6 +44,7 @@ export default function OrderReview() {
 			<Heading fontWeight="200" letterSpacing=".1em" size="lg" align="center">
 				Order Review
 			</Heading>
+			<AccountWidget orderList={orderList} />
 			<Flex my="5" w="100%">
 				<Table size="sm" colorScheme="facebook">
 					<TableCaption fontSize="md">Click on a row to review order details </TableCaption>
@@ -60,7 +62,6 @@ export default function OrderReview() {
 							if (k.length < 13) {
 								return '';
 							}
-
 							return (
 								<Tr
 									onClick={() => {
