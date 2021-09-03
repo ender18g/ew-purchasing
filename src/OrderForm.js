@@ -10,12 +10,15 @@ import {
 	InputLeftAddon,
 	InputGroup,
 	Divider,
-	Checkbox
+	Checkbox,
+	Select
 } from '@chakra-ui/react';
 import 'firebase/database';
 import { useState, useEffect } from 'react';
 import { useDatabase, useSigninCheck } from 'reactfire';
 import { CheckIcon, SpinnerIcon } from '@chakra-ui/icons';
+
+const endUses = [ 'MIDN Capstone', 'MIDN Research', 'Faculty Research', 'Course Support' ];
 
 export default function OrderForm(props) {
 	const {
@@ -60,6 +63,18 @@ export default function OrderForm(props) {
 
 			{/* REQUESTOR DATA */}
 			<Flex m="3" justifyContent="center" flexWrap={{ base: 'wrap', md: 'nowrap' }}>
+				<Select
+					value={data.endUse}
+					onChange={(e) => setData({ ...data, endUse: e.target.value })}
+					placeholder="End Use"
+					isInvalid={!data.endUse}
+				>
+					{endUses.map((n, k) => (
+						<option value={n} key={k}>
+							{n}
+						</option>
+					))}
+				</Select>
 				<Input
 					onChange={handleChange}
 					name="requestor"

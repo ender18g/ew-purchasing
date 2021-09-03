@@ -181,6 +181,7 @@ export default function OrderPage(props) {
 
 			{/* THIS IS FOR QUOTE URL AND SELECT 889 */}
 			<Flex
+				display={props.type === 'new' ? 'flex' : 'none'}
 				bg="gray.100"
 				flexWrap={{ base: 'wrap', lg: 'nowrap' }}
 				justifyContent="space-around"
