@@ -26,6 +26,7 @@ export default function OrderReview() {
 	const database = useDatabase();
 	const ref = database.ref('orders');
 	const [ showOrder, setShowOrder ] = useState({ show: false, data: false, key: false });
+	const [ showAccounts, setShowAccounts ] = useState(false);
 	const { status, data: orderList } = useDatabaseObjectData(ref);
 	if (status === 'loading') {
 		return <Spinner />;
@@ -41,10 +42,16 @@ export default function OrderReview() {
 
 	return (
 		<Box m="5">
-			<Heading fontWeight="200" letterSpacing=".1em" size="lg" align="center">
+			<Heading
+				onClick={() => setShowAccounts(!showAccounts)}
+				fontWeight="200"
+				letterSpacing=".1em"
+				size="lg"
+				align="center"
+			>
 				Order Review
 			</Heading>
-			<AccountWidget orderList={orderList} />
+			{showAccounts && <AccountWidget orderList={orderList} />}
 			<Flex maxHeight="100vh" my="5" w="100%" overflow="auto">
 				<Table size="sm" colorScheme="facebook">
 					<TableCaption fontSize="md">Click on a row to review order details </TableCaption>
