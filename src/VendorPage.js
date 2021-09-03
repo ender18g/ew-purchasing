@@ -17,6 +17,7 @@ import 'firebase/database';
 import { useState, useEffect } from 'react';
 import { useDatabase, useSigninCheck, useDatabaseObjectData } from 'reactfire';
 import VendorSelect from './VendorSelect';
+import VendorEmail from './VendorEmail';
 
 export default function VendorPage() {
 	const database = useDatabase();
@@ -116,6 +117,7 @@ export default function VendorPage() {
 			>
 				Download a Blank 889 Form (Fillable PDF)
 			</Link>
+			<VendorEmail />
 		</Box>
 	);
 }
