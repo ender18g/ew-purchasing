@@ -131,15 +131,21 @@ export default function OrderForm(props) {
 					flexWrap={{ base: 'wrap', md: 'nowrap' }}
 					key={i}
 				>
-					<InputGroup w="600px">
+					<InputGroup maxW="200px">
 						<InputLeftAddon children={i + 1} />
 						<Input
 							onChange={handleChange}
-							name={`desc${i + 1}`}
-							value={data[`desc${i + 1}`]}
-							placeholder={`Item ${i + 1} description`}
+							name={`part${i + 1}`}
+							value={data[`part${i + 1}`]}
+							placeholder={`Part #`}
 						/>
 					</InputGroup>
+					<Input
+						onChange={handleChange}
+						name={`desc${i + 1}`}
+						value={data[`desc${i + 1}`]}
+						placeholder={`Description`}
+					/>
 					<Input
 						onChange={handleChange}
 						name={`qty${i + 1}`}
