@@ -30,6 +30,13 @@ async function fill(buf) {
 	for (const [ key, value ] of Object.entries(fireUrl.data)) {
 		//look at the key of the firebase object
 		fields[lookupData[key]] = [ value ];
+		if (key.startsWith('desc')) {
+			const itemNum = key.match(/\d+/)[0];
+			if (`part${itemNum}` in fireData) {
+				const partNo = fireData[`part${itemNum}`];
+				fields[lookupData[key]] = [ partNo + ' | ' + value ];
+			}
+		}
 		if (key === 'date') {
 			const dateArray = value.split('-');
 			const dateString = [ dateArray[1], dateArray[2], dateArray[0] ].join('/');
