@@ -331,14 +331,19 @@ export default function OrderForm(props) {
 				<Button
 					mx="2"
 					isDisabled={props.disableSubmit}
-					colorScheme={status ? 'teal' : 'blue'}
+					colorScheme={status ? 'teal' : 'red'}
 					onClick={addOrder}
 				>
 					{status && <CheckIcon mx="2" />}
 					{status ? 'Submitted' : 'Submit'}
 				</Button>
 				<Link style={{ textDecoration: 'none' }} isExternal href={`/pdf/pdf.html?fireKey=${fireKey}`}>
-					<Button mx="2" isDisabled={!fireKey} colorScheme="teal">
+					<Button
+						mx="2"
+						isDisabled={!fireKey}
+						display={type === 'review' ? 'flex' : 'none'}
+						colorScheme="teal"
+					>
 						<SpinnerIcon mx="2" />Generate PDF
 					</Button>
 				</Link>

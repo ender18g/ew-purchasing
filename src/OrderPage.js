@@ -110,6 +110,7 @@ export default function OrderPage(props) {
 			estShipping: parseFloat(data.estShipping).toFixed(2)
 		});
 		setStatus(true);
+		console.log('Order Added', data);
 		setFireKey(newRef._delegate._path.pieces_[1]);
 	};
 	// increment the number of items in the order
@@ -139,7 +140,8 @@ export default function OrderPage(props) {
 			estShipping: 'Provide Estimate Shipping',
 			requestor: 'Provide requestor full name',
 			budgetPSC: 'Provide budget PSC',
-			budgetPOC: 'Provide budget POC'
+			budgetPOC: 'Provide budget POC',
+			endUse: 'Provide an end use'
 		};
 		for (let property in requiredItems) {
 			if (!data[property]) {
