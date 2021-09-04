@@ -51,10 +51,13 @@ export default function OrderReview() {
 			>
 				Order Review
 			</Heading>
+			{/* account widget is hidden! */}
 			{showAccounts && <AccountWidget orderList={orderList} />}
 			<Flex maxHeight="100vh" my="5" w="100%" overflow="auto">
 				<Table size="sm" colorScheme="facebook">
 					<TableCaption fontSize="md">Click on a row to review order details </TableCaption>
+
+					{/* HERE IS TABLE HEADING */}
 					<Thead>
 						<Tr>
 							<Th display={{ base: 'none', md: 'revert' }}>Title</Th>
@@ -64,6 +67,7 @@ export default function OrderReview() {
 							<Th>Total</Th>
 						</Tr>
 					</Thead>
+					{/* HERE IS TABLE BODY */}
 					<Tbody>
 						{Object.keys(orderList).map((k) => {
 							if (k.length < 13) {

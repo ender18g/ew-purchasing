@@ -34,11 +34,23 @@ export default function OrderForm(props) {
 		fireKey,
 		type
 	} = props;
-
 	return (
 		<Box>
 			{/* TITLE AND BUDGET CODE */}
 			<Flex m="2" justifyContent="center">
+				{type === 'review' && (
+					<Checkbox
+						mx="4"
+						colorScheme="blue"
+						name="submittedDMYesNo"
+						size="lg"
+						isChecked={data.submittedDMYesNo}
+						onChange={handleCheck}
+					>
+						Submitted
+					</Checkbox>
+				)}
+
 				<Input
 					isRequired
 					onChange={handleChange}
@@ -64,6 +76,7 @@ export default function OrderForm(props) {
 			{/* REQUESTOR DATA */}
 			<Flex m="3" justifyContent="center" flexWrap={{ base: 'wrap', md: 'nowrap' }}>
 				<Select
+					maxW="200px"
 					value={data.endUse}
 					onChange={(e) => setData({ ...data, endUse: e.target.value })}
 					placeholder="End Use"

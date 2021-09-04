@@ -217,6 +217,7 @@ export default function OrderPage(props) {
 				numItems={numItems}
 				orderTotal={orderTotal}
 				fireKey={fireKey}
+				type={props.type}
 				disableSubmit={invalidForm() ? true : false}
 			/>
 			<Heading textAlign="center" size="lg" textColor="red" fontWeight="600">
