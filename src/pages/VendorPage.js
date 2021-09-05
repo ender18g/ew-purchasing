@@ -12,12 +12,12 @@ import {
 	Spinner,
 	Link
 } from '@chakra-ui/react';
-import FileUploader from './FileUploader';
+import FileUploader from '../components/FileUploader';
 import 'firebase/database';
 import { useState, useEffect } from 'react';
 import { useDatabase, useSigninCheck, useDatabaseObjectData } from 'reactfire';
-import VendorSelect from './VendorSelect';
-import VendorEmail from './VendorEmail';
+import VendorSelect from '../components/VendorSelect';
+import VendorEmail from '../components/VendorEmail';
 
 export default function VendorPage() {
 	const database = useDatabase();

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { useAuth, useSigninCheck } from 'reactfire';
-import { LoadingSpinner } from './display/LoadingSpinner';
+import { LoadingSpinner } from '../display/LoadingSpinner';
 import { Flex, Image, Button } from '@chakra-ui/react';
 
 const signOut = (auth) => auth.signOut().then(() => console.log('signed out'));

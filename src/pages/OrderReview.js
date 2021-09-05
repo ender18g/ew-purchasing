@@ -20,7 +20,7 @@ import 'firebase/database';
 import { useState } from 'react';
 import { useDatabase, useDatabaseObjectData } from 'reactfire';
 import OrderPage from './OrderPage';
-import AccountWidget from './AccountWidget';
+import AccountWidget from '../components/AccountWidget';
 
 export default function OrderReview() {
 	const database = useDatabase();

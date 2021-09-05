@@ -3,10 +3,10 @@ import { Box, Heading, Flex, Select, Link, Button, Text } from '@chakra-ui/react
 import 'firebase/database';
 import { useState, useEffect } from 'react';
 import { useDatabase, useSigninCheck } from 'reactfire';
-import OrderForm from './OrderForm';
-import FileUploader from './FileUploader';
-import VendorSelect from './VendorSelect';
-import AccountSelect from './AccountSelect';
+import OrderForm from '../components/OrderForm';
+import FileUploader from '../components/FileUploader';
+import VendorSelect from '../components/VendorSelect';
+import AccountSelect from '../components/AccountSelect';
 
 export default function OrderPage(props) {
 	//pass in props.data and props.type (new) props.fireKey

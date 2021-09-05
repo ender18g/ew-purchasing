@@ -1,16 +1,16 @@
 import React from 'react';
 import { ChakraProvider, theme, Text, Flex } from '@chakra-ui/react';
-import OrderPage from './OrderPage';
-import OrderReview from './OrderReview';
-import Home from './Home';
-import Navbar from './Navbar';
+
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import { AuthWrapper, Auth } from './Auth';
+import { AuthWrapper, Auth } from './components/Auth';
 import 'firebase/auth';
-import VendorPage from './VendorPage';
-import TemplatePage from './TemplatePage';
-
+import VendorPage from './pages/VendorPage';
+import TemplatePage from './pages/TemplatePage';
+import OrderPage from './pages/OrderPage';
+import OrderReview from './pages/OrderReview';
+import Home from './pages/Home';
+import Navbar from './components/Navbar';
 const loginMessage = 'Please Login';
 
 function App() {

@@ -13,13 +13,13 @@ import {
 	MenuItem
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
-import logo from './WRCLogo.png';
+import logo from '../images/WRCLogo.png';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
-import { Auth } from './Auth';
-import Hamburger from './Hamburger';
-import FullMenu from './FullMenu';
+import { Auth } from '../components/Auth';
+import Hamburger from '../components/Hamburger';
+import FullMenu from '../components/FullMenu';
 
 const menuItems = [
 	{ title: 'Home', link: '/' },
