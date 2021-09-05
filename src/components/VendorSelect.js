@@ -1,21 +1,7 @@
-import React from 'react';
-import {
-	Box,
-	Flex,
-	Text,
-	Button,
-	Heading,
-	Select,
-	Input,
-	InputGroup,
-	InputLeftAddon,
-	Spinner,
-	Link
-} from '@chakra-ui/react';
-import FileUploader from './FileUploader';
+import { Button, Flex, Link, Select, Spinner } from '@chakra-ui/react';
 import 'firebase/database';
-import { useState, useEffect } from 'react';
-import { useDatabase, useSigninCheck, useDatabaseObjectData } from 'reactfire';
+import React, { useState } from 'react';
+import { useDatabase, useDatabaseObjectData } from 'reactfire';
 
 export default function VendorSelect(props) {
 	const { setSelection } = props;

@@ -1,25 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import {
-	Heading,
-	Flex,
-	Image,
-	Link,
-	Box,
-	IconButton,
-	Text,
-	MenuButton,
-	Menu,
-	MenuList,
-	MenuItem
-} from '@chakra-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
-import logo from '../images/WRCLogo.png';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { NavLink } from 'react-router-dom';
-import './Navbar.css';
+import { Box, Flex, Heading, Image } from '@chakra-ui/react';
+import React from 'react';
 import { Auth } from '../components/Auth';
-import Hamburger from '../components/Hamburger';
 import FullMenu from '../components/FullMenu';
+import Hamburger from '../components/Hamburger';
+import logo from '../images/WRCLogo.png';
+import './Navbar.css';
 
 const menuItems = [
 	{ title: 'Home', link: '/' },

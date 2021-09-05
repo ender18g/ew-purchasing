@@ -1,23 +1,10 @@
-import React from 'react';
-import {
-	Box,
-	Flex,
-	Text,
-	Button,
-	Heading,
-	Select,
-	Input,
-	InputGroup,
-	InputLeftAddon,
-	Spinner,
-	Link
-} from '@chakra-ui/react';
-import FileUploader from '../components/FileUploader';
+import { Box, Button, Flex, Heading, Input, InputGroup, InputLeftAddon, Link } from '@chakra-ui/react';
 import 'firebase/database';
-import { useState, useEffect } from 'react';
-import { useDatabase, useSigninCheck, useDatabaseObjectData } from 'reactfire';
-import VendorSelect from '../components/VendorSelect';
+import React, { useState } from 'react';
+import { useDatabase } from 'reactfire';
+import FileUploader from '../components/FileUploader';
 import VendorEmail from '../components/VendorEmail';
+import VendorSelect from '../components/VendorSelect';
 
 export default function VendorPage() {
 	const database = useDatabase();

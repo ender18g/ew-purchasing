@@ -1,12 +1,10 @@
-import React from 'react';
-import { Box, Heading, Flex, Select, Link, Button, Text } from '@chakra-ui/react';
+import { CopyIcon, DeleteIcon } from '@chakra-ui/icons';
+import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import 'firebase/database';
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDatabase, useSigninCheck } from 'reactfire';
-import OrderForm from '../components/OrderForm';
-import FileUploader from '../components/FileUploader';
 import AccountSelect from '../components/AccountSelect';
-import { DeleteIcon, EditIcon, CopyIcon } from '@chakra-ui/icons';
+import OrderForm from '../components/OrderForm';
 
 export default function TemplatePage(props) {
 	//pass in props.data and props.type (new) props.fireKey

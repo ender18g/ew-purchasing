@@ -1,22 +1,19 @@
-import React from 'react';
+import { CheckIcon, SpinnerIcon } from '@chakra-ui/icons';
 import {
 	Box,
-	Text,
-	Link,
-	Input,
-	Flex,
 	Button,
-	Heading,
-	InputLeftAddon,
-	InputGroup,
-	Divider,
 	Checkbox,
-	Select
+	Divider,
+	Flex,
+	Input,
+	InputGroup,
+	InputLeftAddon,
+	Link,
+	Select,
+	Text
 } from '@chakra-ui/react';
 import 'firebase/database';
-import { useState, useEffect } from 'react';
-import { useDatabase, useSigninCheck } from 'reactfire';
-import { CheckIcon, SpinnerIcon } from '@chakra-ui/icons';
+import React from 'react';
 
 const endUses = [ 'MIDN Capstone', 'MIDN Research', 'Faculty Research', 'Course Support' ];
 
@@ -38,19 +35,6 @@ export default function OrderForm(props) {
 		<Box>
 			{/* TITLE AND BUDGET CODE */}
 			<Flex m="2" justifyContent="center">
-				{type === 'review' && (
-					<Checkbox
-						mx="4"
-						colorScheme="blue"
-						name="submittedDMYesNo"
-						size="lg"
-						isChecked={data.submittedDMYesNo}
-						onChange={handleCheck}
-					>
-						Submitted
-					</Checkbox>
-				)}
-
 				<Input
 					isRequired
 					onChange={handleChange}
@@ -170,6 +154,7 @@ export default function OrderForm(props) {
 					</InputGroup>
 					<Input
 						onChange={handleChange}
+						maxW="400px"
 						name={`desc${i + 1}`}
 						value={data[`desc${i + 1}`]}
 						placeholder={`Description`}

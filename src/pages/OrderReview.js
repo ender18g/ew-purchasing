@@ -1,26 +1,26 @@
-import React from 'react';
+import { CopyIcon, DeleteIcon } from '@chakra-ui/icons';
 import {
 	Box,
-	Text,
-	Spinner,
-	Flex,
 	Button,
+	Flex,
 	Heading,
 	Link,
+	Spinner,
 	Table,
-	Tr,
-	Th,
-	Tbody,
 	TableCaption,
+	Tbody,
 	Td,
-	Thead
+	Th,
+	Thead,
+	Tr
 } from '@chakra-ui/react';
-import { DeleteIcon, EditIcon, CopyIcon } from '@chakra-ui/icons';
 import 'firebase/database';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useDatabase, useDatabaseObjectData } from 'reactfire';
-import OrderPage from './OrderPage';
 import AccountWidget from '../components/AccountWidget';
+import OrderCounter from '../components/OrderCounter';
+import SubmittedBox from '../components/SubmittedBox';
+import OrderPage from './OrderPage';
 
 export default function OrderReview() {
 	const database = useDatabase();
@@ -38,8 +38,6 @@ export default function OrderReview() {
 		setShowOrder({ show: false });
 	};
 
-	console.log(orderList);
-
 	return (
 		<Box m="5">
 			<Heading
@@ -51,6 +49,7 @@ export default function OrderReview() {
 			>
 				Order Review
 			</Heading>
+			<OrderCounter orderList={orderList} />
 			{/* account widget is hidden! */}
 			{showAccounts && <AccountWidget orderList={orderList} />}
 			<Flex maxHeight="100vh" my="5" w="100%" overflow="auto">
@@ -61,7 +60,9 @@ export default function OrderReview() {
 					<Thead>
 						<Tr>
 							<Th display={{ base: 'none', md: 'revert' }}>Title</Th>
-							<Th>Date</Th>
+							<Th>Created Date</Th>
+							<Th>Emailed AO</Th>
+
 							<Th>Requestor</Th>
 							<Th display={{ base: 'none', md: 'revert' }}>Merchant</Th>
 							<Th>Total</Th>
@@ -91,6 +92,13 @@ export default function OrderReview() {
 								>
 									<Td display={{ base: 'none', md: 'revert' }}>{orderList[k]['orderTitle']}</Td>
 									<Td>{orderList[k]['date']}</Td>
+									<Td>
+										<SubmittedBox
+											displayText="Submitted AO"
+											orderFireKey={k}
+											keyName="submittedAO"
+										/>
+									</Td>
 									<Td>{orderList[k]['requestor']}</Td>
 									<Td display={{ base: 'none', md: 'revert' }}>{orderList[k]['merchant']}</Td>
 									<Td>${orderList[k]['orderTotal'].toFixed(2)}</Td>

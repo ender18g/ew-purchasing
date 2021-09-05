@@ -1,6 +1,5 @@
-import React from 'react';
-import { Box, Code, Text, Button } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, Button, Text } from '@chakra-ui/react';
+import React, { useState } from 'react';
 
 export default function VendorEmail() {
 	const [ show, setShow ] = useState(false);
